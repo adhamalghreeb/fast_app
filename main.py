@@ -37,13 +37,3 @@ async def root(file: bytes = File(...)):
   results = model_yolo(input_image)
   results_json =   json.loads(results.pandas().xyxy[0].to_json(orient="records"))
   return {"result": results_json}
-
-@app.post("/voicerecog/")
-async def create_upload_file(file: UploadFile = File(...)):
-    destination_file_path = "C:/Users/PC/Desktop/vs_project_1/static/"+file.filename # location to store file
-    async with aiofiles.open(destination_file_path, 'wb') as out_file:
-        while content := await file.read(1024):  # async read file chunk
-            await out_file.write(content)  # async write file chunk
-    var_name = "C:/Users/PC/Desktop/vs_project_1/static/"+file.filename # path to the uploaded file
-    result = model_wis.transcribe(var_name)
-    return {'results': result}
