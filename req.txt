@@ -1,8 +1,0 @@
-io
-json
-whisper
-shutil
-PIL
-fastapi
-torch
-aiofiles
